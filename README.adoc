@@ -27,3 +27,8 @@ Then mount that directory in the Flyway container:
      - "./sql:/flyway/sql"
      - "./drivers:/flyway/drivers"
 ----
+
+This example uses the docker-compose 2.1 syntax to make use of the `depends_on: condition` option
+which has been https://docs.docker.com/compose/compose-file/#depends_on[removed in version 3].
+The docker-compose documentation gives other options for https://docs.docker.com/compose/startup-order/[controlling startup order]
+in version 3.
