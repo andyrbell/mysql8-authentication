@@ -1,0 +1,1 @@
+Can put the official MySQL JDBC driver here and mount the directory in the Flyway container

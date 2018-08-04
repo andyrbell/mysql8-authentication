@@ -1,0 +1,29 @@
+= MySQL 8.0.4+ authentication with Flyway / MariaDB Driver
+
+See this https://stackoverflow.com/questions/51670095[Stack Overflow question]
+
+Flyway is using the MariaDB JDBC driver, which not appear to support the new default
+authentication plugin in MySQL 8.0.4, `caching_sha2_password`.
+
+One way around this is to revert to the previous default authentication plugin:
+
+[indent=0]
+----
+  docker-mysql:
+    image: mysql:8.0.11
+    command: --default-authentication-plugin=mysql_native_password
+----
+
+The other option would be to download the official http://central.maven.org/maven2/mysql/mysql-connector-java/8.0.11/mysql-connector-java-8.0.11.jar[MySQL JDBC driver jar] and place in the `./drivers` directory.
+
+Then mount that directory in the Flyway container:
+
+[indent=0]
+----
+  flyway:
+    image: boxfuse/flyway
+    command: ...
+    volumes:
+     - "./sql:/flyway/sql"
+     - "./drivers:/flyway/drivers"
+----
